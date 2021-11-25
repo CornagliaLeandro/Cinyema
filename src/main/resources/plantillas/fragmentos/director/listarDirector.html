@@ -1,0 +1,47 @@
+<div id="tablaAdmin" th:fragment="_listarDirector(directores,listar)">
+<!-- DATATABLES -->
+     <div class="row">
+        <div class="col-md-9 mb-3 tamTabla">
+          <div class="card">
+            <div class="card-header">
+              <span><i class="bi bi-table me-2"></i>Tabla de Directores</span>
+            </div>
+            <div class="col col-md-4 mt-2 ms-2 mb-3">
+				<form th:action="@{/director/buscarDirector}" th:object=${director} method="POST" class="form">
+                  <input class="buscador" th:value="${nombre}" type="text" placeholder=" Buscar">
+                  <button class="btn btn_buscar" type="submit"><span><i class="uil uil-search"></i></span></button>
+                  <a class="btn btn-light btn_actualizar" th:href="@{/director}"><i class="uil uil-sync"></i></a>
+	      	  	</form>
+	      	  	<p class="errorBuscar" th:if="${ErrorBuscar != null}" th:text="${ErrorBuscar}"></p>
+			</div>
+              <div class="table-responsive">
+                <table id="datatablesSimple" class="table table-striped data-table">
+					<thead>
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Pais</th>
+							<th scope="col">Modificar</th>
+							<th scope="col">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody th:each="director : ${directores}">
+						<tr>
+							<th scope="row" th:text="${director.idDirector}"></th>
+							<td th:text="${director.nombre}"></td>
+							<td th:text="${director.pais}"></td>
+							<td>
+								<a th:href="@{/director/editar/__${director.idDirector}__}"><i class="far fa-edit"></i></a>
+							</td>
+							<td>
+								<a th:href="@{/director/eliminar/__${director.idDirector}__}"><i class="far fa-trash-alt"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			  </div>
+            </div>
+          </div>
+        </div>
+      </div>	
+</div>	    

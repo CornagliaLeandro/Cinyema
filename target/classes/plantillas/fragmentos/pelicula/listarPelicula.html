@@ -1,0 +1,85 @@
+<div id="tablaAdmin" th:fragment="_listarPelicula(peliculas,listar)">
+<!-- DATATABLES -->
+     <div class="row">
+        <div class="col-md-9 mb-3 tamTabla">
+          <div class="card">
+            <div class="card-header">
+              <span><i class="bi bi-table me-2"></i>Tabla de Peliculas</span>
+            </div>
+            <div class="col col-md-4 mt-2 ms-2 mb-3">
+				<form th:action="@{/pelicula/buscarPelicula}" th:object=${pelicula} method="POST" class="form">
+                  <input class="buscador" th:value="${nombre}" type="text" placeholder=" Buscar">
+                  <button class="btn btn_buscar" type="submit"><span><i class="uil uil-search"></i></span></button>
+                  <a class="btn btn-light btn_actualizar" th:href="@{/pelicula}"><i class="uil uil-sync"></i></a>
+	      	  	</form>
+	      	  	<p class="errorBuscar" th:if="${ErrorBuscar != null}" th:text="${ErrorBuscar}"></p>
+			</div>
+			<div>
+              <div class="table-responsive">
+                <table id="datatablesSimple" class="table table-striped data-table">
+		            <thead>
+		                <tr>
+		                    <th scope="col">Titulo</th>
+		                    <th scope="col">Descripcion</th>
+		                    <th scope="col">Genero</th>
+		                    <th scope="col">Director</th>
+		                    <th scope="col">Actores</th>
+		                    <th scope="col">Imagen</th>
+		                    <th scope="col">Anio</th>
+		                    <th scope="col">Pais</th>
+		                    <th scope="col">Idioma</th>
+		                    <th scope="col">Subtitulo</th>
+		                    <th scope="col">Formato</th>
+		                    <th scope="col">Duracion</th>
+		                    <th scope="col">Trailer</th>
+		                    <th scope="col">Alta</th>
+		                    <th scope="col">Modificar</th>
+		                    <th scope="col">Eliminar</th>
+		                </tr>
+		            </thead>
+		            <tbody th:each="pelicula : ${peliculas}">
+		                <tr>
+		                    <td th:text="${pelicula.titulo}"></td>
+		                    <td th:text="${pelicula.descripcion}"></td>
+		                    <td th:text="${pelicula.genero}"></td>
+		                    <td th:text="${pelicula.director.nombre}"></td>
+		                    <td><p th:each="actor : ${pelicula.actores}" th:text ="${actor.nombreCompleto}"></p></td>
+		                    <td><img alt="" th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" style="width: 50px; height: 50px;"> </td>
+		                    <td th:text="${pelicula.anio}"></td>
+		                    <td th:text="${pelicula.pais}"></td>
+		                    <td th:text="${pelicula.idioma}"></td>
+		                    <td th:text="${pelicula.subtitulo}"></td>
+		                    <td th:text="${pelicula.formato}"></td>
+		                    <td th:text="${pelicula.duracion}"></td>
+		                    <td th:text="${pelicula.trailer}"></td>
+		                    <td>
+		                        <a th:if="${pelicula.alta}" th:href="@{/pelicula/baja/__${pelicula.idPelicula}__}"><i class="fa fa-circle " style="color:rgb(77, 144, 57);"></i></a>
+							    <a th:unless="${pelicula.alta}" th:href="@{/pelicula/alta/__${pelicula.idPelicula}__}"><i class="fa fa-circle" style="color:rgb(231, 41, 41);"></i></a>
+		                    </td>
+		                    <td>
+		                        <a th:href="@{/pelicula/editar/__${pelicula.idPelicula}__}"><i class="far fa-edit"></i></a>
+		                    </td>
+		                    <td>
+		                        <a th:href="@{/pelicula/eliminar/__${pelicula.idPelicula}__}"><i class="far fa-trash-alt"></i></a>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>	
+</div>	        
+		<!--        
+        <div class=" text-center container">
+            <div class="row justify-content-md-center">
+                <div class="col col-md-2">
+                    <a th:href="@{/pelicula/registrar}" class="btn btn-success my-2">Nuevo</a>
+                </div>
+                <div class="col col-md-2">
+                    <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
+                </div>
+            </div>
+        </div>
+		-->  
